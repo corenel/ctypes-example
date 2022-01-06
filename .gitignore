@@ -1,0 +1,54 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Project-related
+.idea/
+.vscode/
+*.code-workspace
+src/.clion.source.upload.marker
+
+# build
+.tags
+cmake-build-*
+build/
+devel/
+install/
+.catkin_workspace
+
+# python
+__pycache__/
+*.egg-info/
+.cache
+
+# other
+.DS_Store
