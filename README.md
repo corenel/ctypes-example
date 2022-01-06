@@ -20,3 +20,24 @@ make
 cd ../python
 python test_foo.py
 ```
+
+## Outputs
+
+Outputs from `register_bar_callback` test:
+
+```bash
+$ python test_foo.py
+=== Running test_callback() in Python ===
+Calling register_bar_callback() in Python
+register_bar_callback() called in C++
+-> len_buf in C++ before callback: 10
+-> buf in C++ before callback: 012345678
+-> calling registered function in C++
+Callback called in Python
+-> len_buf received in Python: 10
+-> len_buf modified in Python 13
+-> buf modified in Python: Hello, World!
+-> lem_buf in C++ aftering callback: 13
+-> buf in C++ aftering callback: Hello, World!
+Return value in Python: 0
+```
