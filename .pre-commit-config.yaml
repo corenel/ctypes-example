@@ -1,0 +1,44 @@
+repos:
+  # - repo: https://github.com/asottile/pyupgrade
+  #   rev: v2.30.0
+  #   hooks:
+  #     - id: pyupgrade
+  #       args: ["--py36-plus"]
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.6.0
+    hooks:
+      - id: reorder-python-imports
+        name: Reorder Python imports (src, tests)
+        files: "^(?!examples/)"
+        args: ["--application-directories", "src"]
+  - repo: https://github.com/psf/black
+    rev: 21.12b0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-implicit-str-concat
+  # - repo: https://github.com/pocc/pre-commit-hooks
+  #   rev: v1.3.5
+  #   hooks:
+  #     - id: clang-format
+  #       args: [--style=Google]
+  #     - id: clang-tidy
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=10240']
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-json
+      - id: check-symlinks
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: trailing-whitespace
