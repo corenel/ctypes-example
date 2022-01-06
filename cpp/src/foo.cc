@@ -1,6 +1,8 @@
 #include "foo.h"
 
+#include <cstring>
 #include <iostream>
+#include <memory>
 
 int foo(Foo* foo) { return bar(&foo->value, foo->msg); }
 
@@ -21,13 +23,22 @@ int bar(int* value, char* msg) {
 int register_bar_callback(CALLBACK cb) {
   std::cout << "register_bar_callback() called in C++" << std::endl;
 
-  int value = 42;
-  char* msg = "Hello World!";
-  std::cout << "-> value in C++: " << value << std::endl;
-  std::cout << "-> msg in C++: " << msg << std::endl;
+  // std::string msg_str = "Hello World!";
+  // char msg[msg_str.length() + 1];
+  // std::strcpy(msg, msg_str.c_str());
+  // char* msg = "Hello World!";
+
+  g_callback = cb;
+  int len_buf = std::strlen(g_buf) + 1;
+
+  std::cout << "-> len_buf in C++ before callback: " << len_buf << std::endl;
+  std::cout << "-> buf in C++ before callback: " << g_buf << std::endl;
 
   std::cout << "-> calling registered function in C++" << std::endl;
-  cb(&value, msg);
+  g_callback(&len_buf, g_buf);
+
+  std::cout << "-> lem_buf in C++ aftering callback: " << len_buf << std::endl;
+  std::cout << "-> buf in C++ aftering callback: " << g_buf << std::endl;
 
   return 0;
 }

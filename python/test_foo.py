@@ -1,4 +1,5 @@
 from __future__ import print_function
+
 import ctypes
 import os
 
@@ -51,18 +52,30 @@ def test_bar():
 
 
 def test_callback():
-    def callback(value, msg):
+    def callback(len_buf, buf):
         print("Callback called in Python")
-        print("-> value in Python {}".format(value.contents.value))
-        print("-> msg in Python: {}".format(msg))
-        if value == 0:
+        print("-> len_buf received in Python: {}".format(len_buf.contents.value))
+
+        new_msg = "Hello, World!"
+        for i in range(len(new_msg)):
+            buf[i] = new_msg[i].encode("utf-8")
+        buf[len(new_msg)] = b"\0"
+        len_buf.contents.value = len(new_msg)
+
+        print("-> len_buf modified in Python {}".format(len_buf.contents.value))
+        print("-> buf modified in Python: {}".format(new_msg))
+
+        if len_buf == 0:
             return 0
         else:
             return 1
 
     # construct the callback function
     CB_FUNC = ctypes.CFUNCTYPE(
-        ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.c_char_p
+        ctypes.c_int,
+        ctypes.POINTER(ctypes.c_int),
+        # ctypes.c_char_p
+        ctypes.POINTER(ctypes.c_char),
     )
     cb_func = CB_FUNC(callback)
 
